@@ -10,6 +10,10 @@ module Kaminari
       super(original_array[offset_val, limit_val] || [])
     end
 
+    def total_count(total_count)
+      @external_total_count = total_count
+    end
+
     # items at the specified "page"
     def page(num = 1)
       offset(limit_value * ([num.to_i, 1].max - 1))
@@ -22,7 +26,7 @@ module Kaminari
 
     # total item numbers of the original array
     def total_count
-      @_original_array.count
+      @external_total_count || @_original_array.count
     end
 
     # returns another chunk of the original array
